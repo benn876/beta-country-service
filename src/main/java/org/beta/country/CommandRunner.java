@@ -13,7 +13,6 @@ import java.util.List;
 public class CommandRunner implements CommandLineRunner {
     private final CountryService countryService;
 
-
     @Override
     public void run(String... args) {
         countryService.setCountries(List.of(

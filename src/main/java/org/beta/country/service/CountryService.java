@@ -17,4 +17,9 @@ public class CountryService {
     public List<Country> getCountries() {
         return countries;
     }
+
+    public Country addCountry(Country country) {
+        countries.add(country);
+        return country;
+    }
 }
