@@ -1,11 +1,14 @@
 package org.beta.country.model;
 
 import lombok.Builder;
+import lombok.With;
 
 import java.util.List;
 
+@With
 @Builder
 public record Country(
+        String id,
         String name,
         String capital,
         Integer population,
