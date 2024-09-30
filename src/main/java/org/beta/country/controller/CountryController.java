@@ -28,8 +28,8 @@ public class CountryController {
     // http://localhost:8080/countries
     @PostMapping
     public Country addCountry(@RequestBody Country country){
+        System.out.println("test");
        return countryService.addCountry(country);
     }
-
 
 }
