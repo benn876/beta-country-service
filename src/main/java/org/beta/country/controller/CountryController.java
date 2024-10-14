@@ -25,6 +25,12 @@ public class CountryController {
         return countryService.getCountries();
     }
 
+    // http://localhost:8080/countries
+    @PostMapping
+    public Country addCountry(@RequestBody Country country) {
+        return countryService.addCountry(country);
+    }
+
     // http://localhost:8080/countries/filter
     @GetMapping("filter")
     public List<Country> getCountriesFilter(@RequestParam(required = false) String continent,
@@ -35,12 +41,6 @@ public class CountryController {
     @GetMapping("{id}")
     public Country getCountry(@PathVariable String id) {
         return countryService.getCountryById(id);
-    }
-
-    // http://localhost:8080/countries
-    @PostMapping
-    public Country addCountry(@RequestBody Country country) {
-        return countryService.addCountry(country);
     }
 
     // http://localhost:8080/countries/{id}
