@@ -1,12 +1,11 @@
 package org.beta.country.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @With
 @Builder
@@ -28,6 +27,16 @@ public class Country {
     @Column
     private String continent;
 
-    @Transient
-    private List<String> neighbours;
+    @OneToOne(cascade = ALL)
+    private President president;
+
+    @OneToMany(cascade = ALL)
+    private List<City> cities;
+
+//    @ManyToOne
+//    private List<Continent> continent;
+
+//    @ManyToMany
+//    private List<Country> neighbours;
+
 }

@@ -1,11 +1,15 @@
 package org.beta.country.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.beta.country.client.CountryDTO;
+import org.beta.country.client.CountryMapper;
 import org.beta.country.model.Country;
 import org.beta.country.service.CountryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.beta.country.client.CountryMapper.toDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,31 +25,35 @@ public class CountryController {
 
     // http://localhost:8080/countries
     @GetMapping
-    public List<Country> getCountries() {
-        return countryService.getCountries();
+    public List<CountryDTO> getCountries() {
+        return countryService.getCountries().stream()
+                .map(CountryMapper::toDto)
+                .toList();
     }
 
     // http://localhost:8080/countries
     @PostMapping
-    public Country addCountry(@RequestBody Country country) {
-        return countryService.addCountry(country);
+    public CountryDTO addCountry(@RequestBody Country country) {
+        return toDto(countryService.addCountry(country));
     }
 
     // http://localhost:8080/countries/filter
     @GetMapping("filter")
-    public List<Country> getCountriesFilter(@RequestParam(required = false) String continent,
-                                            @RequestParam(required = false) String population) {
-        return countryService.getCountriesByFilter(continent,population);
+    public List<CountryDTO> getCountriesFilter(@RequestParam(required = false) String continent,
+                                               @RequestParam(required = false) String population) {
+        return countryService.getCountriesByFilter(continent, population).stream()
+                .map(CountryMapper::toDto)
+                .toList();
     }
 
     @GetMapping("{id}")
-    public Country getCountry(@PathVariable String id) {
-        return countryService.getCountryById(id);
+    public CountryDTO getCountry(@PathVariable String id) {
+        return toDto(countryService.getCountryById(id));
     }
 
     // http://localhost:8080/countries/{id}
     @DeleteMapping("{id}")
-    public Country deleteCountry(@PathVariable String id){
-        return countryService.deleteCountry(id);
+    public CountryDTO deleteCountry(@PathVariable String id) {
+        return toDto(countryService.deleteCountry(id));
     }
 }
